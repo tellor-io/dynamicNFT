@@ -11,9 +11,9 @@ contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
     //storage
     bytes32 public tellorID;
     uint256 public supply;
-    mapping(uint256 => uint256) public startPrices;
-    string constant metadataURI_up = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
-    string constant metadataURI_down = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
+    mapping(uint256 => uint256) startPrices;
+    string constant public metadataURI_up = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
+    string constant public metadataURI_down = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
 
     constructor(string memory tokenName,
         string memory symbol,
@@ -33,6 +33,7 @@ contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
         uint256 _uintValue = abi.decode(_value, (uint256));
         startPrices[_id] = _uintValue;
         _safeMint(_owner, _id);
+        _setTokenURI(_id, metadataURI_up);
     }
 
     function updateURI(uint256 _id) external{
@@ -44,6 +45,10 @@ contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
         }else{
             _setTokenURI(_id, metadataURI_down);
         }
+    }
+
+    function getStartPrice(uint256 _id) external view returns(uint256){
+        return startPrices[_id];
     }
 
     // The following functions are overrides required by Solidity.

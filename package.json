@@ -20,7 +20,9 @@
     "hardhat": "^2.10.1"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.1.0",
     "@openzeppelin/contracts": "^4.7.2",
+    "chai": "^4.3.6",
     "usingtellor": "^4.0.7"
   }
 }
