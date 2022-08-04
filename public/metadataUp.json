@@ -1,0 +1,20 @@
+{
+    "description": "Tellor Dynamic NFT - Up image", 
+    "external_url": "https://www.tellor.io", 
+    "image": "ipfs://QmU1gkk1PiPZm4ewryfgHZ1r3fyzvTrv12UJRJiDmEHju3", 
+    "name": "themandalore",
+    "attributes":[
+        {
+          "trait_type": "Colour", 
+          "value": "Mixed"
+        }, 
+        {
+          "trait_type": "Coolness", 
+          "value": "A lot!"
+        }, 
+        {
+          "trait_type": "Token Standard", 
+          "value": "ERC721"
+        }
+    ]
+  }

@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: none
 pragma solidity ^0.8.3;
 
-import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "usingtellor/contracts/UsingTellor.sol";
 
+//"Tellor Dynamic NFT","TD",0x6e5122118ce52cc9b97c359c1f174a3c21c71d810f7addce3484cc28e0be0f29,0x7B8AC044ebce66aCdF14197E8De38C1Cc802dB4A
 contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
 
     //storage
     bytes32 public tellorID;
     uint256 public supply;
     mapping(uint256 => uint256) startPrices;
-    string constant public metadataURI_up = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
-    string constant public metadataURI_down = "ipfs://QmR2zHcNhbM9ps7VQDoa5dHeHZnXzfYYGCma4nvfe6J6V7";
+    string constant public metadataURI_up = "ipfs://QmXstMbf412MGNnHxzAwSA1RC5vq8VbLF6MbvmZTzJ6BVj";
+    string constant public metadataURI_down = "ipfs://QmSNcAhadvadkHgukeXSmgmX6Q1G5yQXEVbAkiRGkvhbYK";
 
     constructor(string memory tokenName,
         string memory symbol,
@@ -28,7 +28,7 @@ contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
     function mintToken(address _owner) public returns (uint256 _id){
         supply++;
         _id = supply;
-        (bool ifRetrieve, bytes memory _value,) = getDataBefore(tellorID, block.timestamp - 30 minutes);
+        (bool ifRetrieve, bytes memory _value,) = getDataBefore(tellorID, block.timestamp - 10 seconds);
         require(ifRetrieve);
         uint256 _uintValue = abi.decode(_value, (uint256));
         startPrices[_id] = _uintValue;
@@ -37,7 +37,7 @@ contract DynamicNFT is ERC721, ERC721URIStorage, UsingTellor {
     }
 
     function updateURI(uint256 _id) external{
-        (bool ifRetrieve, bytes memory _value,) = getDataBefore(tellorID, block.timestamp - 30 minutes);
+        (bool ifRetrieve, bytes memory _value,) = getDataBefore(tellorID, block.timestamp - 10);
         if (!ifRetrieve) return;
         uint256 _uintValue = abi.decode(_value, (uint256));
         if(_uintValue >= startPrices[_id]){
